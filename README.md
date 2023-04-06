@@ -53,3 +53,8 @@ Find your next favorite watering hole with this app. I am looking to make a smal
 - https://placekeanu.com/
 - https://dog.ceo/dog-api/
 - https://mediastack.com/
+
+### UI Kits
+- https://demos.creative-tim.com/get-shit-done/index.html#gsdk
+- https://www.creative-tim.com/product/material-kit-react
+- https://demos.creative-tim.com/material-kit/index.html
