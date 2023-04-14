@@ -1,21 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, createContext, useEffect } from "react";
+import { Outlet } from "react-router-dom";
+import "./App.css";
+import { NavBar } from "./components/NavBar";
+import { axUser, getToken } from "./Utilities";
 
-function App() {
-  const [count, setCount] = useState(0)
+export const UserContext = createContext(null);
 
-  return (
-    <div className="App">
-      <h1>Watering Holes</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-    </div>
-  )
+export default function App() {
+	const [user, setUser] = useState(null);
+	
+	getToken();
+
+	useEffect(() => {
+		const userData = async () => {
+			setUser(await axUser());
+		};
+		userData();
+	}, []);
+
+	return (
+		<div className="App">
+			<UserContext.Provider value={{user, setUser}}>
+				<NavBar />
+				
+				<Outlet />
+			</UserContext.Provider>
+		</div>
+	);
 }
-
-export default App
