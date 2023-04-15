@@ -1,15 +1,16 @@
-import { useContext } from "react"
-import { UserContext } from "../App"
+import { useContext, useEffect } from "react";
+import { UserContext } from "../App";
 import { Link } from "react-router-dom";
 
 export function Home() {
-    const { user, setUser } = useContext(UserContext)
-    console.log("home", user)
-    return (
-			<div>
-				{/* {user ? (
-					<h1>{user.username}</h1>
-				) : ( */}
+	const { user, setUser } = useContext(UserContext);
+	console.log("home", user);
+
+	return (
+		<div>
+			{user ? (
+				<h1> Welcome {user}!</h1>
+			) : (
 				<div className="card">
 					<h1>Welcome to Watering Holes</h1>
 					<Link to="/login/">
@@ -18,14 +19,14 @@ export function Home() {
 						</button>
 					</Link>
 					<br />
-					<p>Or register for a new account</p>
+					<h6>Or register for a new account</h6>
 					<Link to="/register/">
-						<button className="btn btn-primary m-2" type="button">
+						<button className="btn btn-primary" type="button">
 							Register
 						</button>
 					</Link>
 				</div>
-				{/* )} */}
-			</div>
-		);
+			)}
+		</div>
+	);
 }

@@ -9,4 +9,4 @@ class Core_User(AbstractUser):
     REQUIRED_FIELDS = ["email"]
 
     def __str__(self):
-        return f"User: {self.username} Email: {self.email}"
+        return f"Username: {self.username} Email: {self.email}"

@@ -91,7 +91,7 @@ export const NavBar = () => {
 					{user && (
 						<Link to="/logout/">
 							<button
-								className="btn btn-primary"
+								className="btn btn-primary m-2"
 								type="button"
 								onClick={() => axLogout(setUser)}
 							>

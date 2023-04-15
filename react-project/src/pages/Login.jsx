@@ -1,19 +1,26 @@
 import { useContext } from "react";
 import { axLogin } from "../Utilities";
 import { UserContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
-const UpdateUser = (e, setUser) => {
+const UpdateUser = async (e, setUser, nav) => {
 	e.preventDefault();
-	axLogin(e.target[0].value, e.target[1].value, setUser);
+	let found = await axLogin(e.target[0].value, e.target[1].value, setUser);
+	if (found) {
+		setTimeout(() => {
+			nav('/', {replace: true})
+		}, 1000)
+	}
 };
 
 export function Login() {
 	const { user, setUser } = useContext(UserContext);
+	const nav = useNavigate()
 	return (
 		<div>
 			<h1>Login Page</h1>
 
-			<form className="m-2" onSubmit={(e) => UpdateUser(e, setUser)}>
+			<form className="m-2" onSubmit={(e) => UpdateUser(e, setUser, nav)}>
 				<input type="text" placeholder="Username" />
 				<input type="password" placeholder="Password" />
 				<button className="btn btn-primary" type="submit">

@@ -60,11 +60,12 @@ def user_logout(request):
 def show_user(request):
     # Parse the user data to readable format, could add some user auth/validation here later
     if request.user.is_authenticated:
-        user_info = serialize("json",  [request.user], fields = ['username', 'email'])
+        user_info = serialize("json",  [request.user], fields = ['username'])
         user_info_workable = json.loads(user_info)
+        # print(user_info_workable[0]['fields'])
         return JsonResponse(user_info_workable[0]['fields'])
-    # return JsonResponse({'user': None})
-    return None
+    return JsonResponse({'username': None})
+    # return None
 
 
 # Serve the react app
