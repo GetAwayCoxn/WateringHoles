@@ -3,8 +3,6 @@ import { UserContext } from "../App";
 import { Link } from "react-router-dom";
 
 export function Logout() {
-    const { user, setUser } = useContext(UserContext)
-    console.log(user)
 	return (
 		<div className="card">
 			<h1>Until next time!</h1>

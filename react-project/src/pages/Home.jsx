@@ -3,8 +3,7 @@ import { UserContext } from "../App";
 import { Link } from "react-router-dom";
 
 export function Home() {
-	const { user, setUser } = useContext(UserContext);
-	console.log("home", user);
+	const { user } = useContext(UserContext);
 
 	return (
 		<div>

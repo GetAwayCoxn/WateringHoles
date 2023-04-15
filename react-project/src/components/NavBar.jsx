@@ -1,15 +1,12 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext } from "../App";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { axLogout } from "../Utilities";
 
 export const NavBar = () => {
-	const { user, setUser } = useContext(UserContext)
-	
-	useEffect(() => {
+	const { user, setUser } = useContext(UserContext);
+	const nav = useNavigate();
 
-	}, [user])
-	console.log("navbar", user)
 	return (
 		<nav className="navbar navbar-expand-lg bg-body-tertiary">
 			<div className="container-fluid">
@@ -89,15 +86,13 @@ export const NavBar = () => {
 						</button>
 					</form>
 					{user && (
-						<Link to="/logout/">
-							<button
-								className="btn btn-primary m-2"
-								type="button"
-								onClick={() => axLogout(setUser)}
-							>
-								Logout
-							</button>
-						</Link>
+						<button
+							className="btn btn-primary m-2"
+							type="button"
+							onClick={() => [axLogout(setUser), nav("/")]}
+						>
+							Logout
+						</button>
 					)}
 				</div>
 			</div>

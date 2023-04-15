@@ -1,11 +1,11 @@
-import { createHashRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import { Register } from "./pages/Register";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Logout } from "./pages/Logout";
 
-const Router = createHashRouter(
+const Router = createBrowserRouter(
 	[
 		{
 			path: "/",
@@ -23,10 +23,10 @@ const Router = createHashRouter(
 					path: "/login/",
 					element: <Login />,
 				},
-				{
-					path: "/logout/",
-					element: <Logout />,
-				},
+				// {
+				// 	path: "/logout/",
+				// 	element: <Logout />,
+				// },
 			],
 		},
 	]

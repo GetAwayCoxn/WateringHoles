@@ -1,49 +1,33 @@
 import axios from "axios";
 
 export const axRegister = async (username, password, email, setUser) => {
-
-	let r = await axios.post("/register/", {
+	const r = await axios.post("/register/", {
 		username: username,
 		email: email,
 		password: password,
 	});
-	console.log("axios reg: ", r.data.success)
-	if (r.data.success) {
-		setUser({'username':username, 'email': email})
-	}
-
-	return r.data.success;
+	setUser(r.data.username);
+	return r.data.username;
 };
 
 export const axLogin = async (username, password, setUser) => {
-	// let lo = await axLogout(setUser)
-	let r = await axios.post("/login/", {
+	const r = await axios.post("/login/", {
 		username: username,
 		password: password,
 	});
-	if (!r.data.login) {
-		setUser({'username': username});
-		console.log("axios login: ", r.data);
-		return true
-	} else {
-		setUser(() => null);
-		console.log("axios login: ", r.data.login);
-		return false
-	}
-
+	setUser(r.data.username);
+	return r.data.username;
 };
 
 export const axLogout = async (setUser) => {
-	let r = await axios.post("/logout/", {});
-
-	setUser(() => null);
+	const r = await axios.post("/logout/", {});
+	setUser(null);
 };
 
 export const axUser = async (setUser) => {
-	let r = await axios.get("/user/", {});
-	console.log("USER AXIOS: ", r.data)
-	setUser(r.data.username)
-	return r.data.username
+	const r = await axios.get("/user/", {});
+	setUser(r.data.username);
+	return r.data.username;
 };
 
 export const getToken = () => {

@@ -1,31 +1,31 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { axRegister } from "../Utilities";
 import { UserContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
-const Register_User = (username, email, password, password2, setUser) => {
-	console.log("REG: ", username,email,password,password2)
+const Register_User = (username, email, password, password2, setUser, nav) => {
 	if (password !== password2) {
 		console.log("passwords dont match")
 	} else {
 		const Set_User = async () => {
 			let r = await axRegister(username, email, password, setUser)
-			console.log("setuser resp: ", r.data)
+			if (r) {
+				nav('/')
+			} else {
+				//handle failed register
+			}
 		}
 		Set_User()
 	}
 };
 
 export function Register() {
-	const { user, setUser } = useContext(UserContext);
-
+	const { setUser } = useContext(UserContext);
+	const nav = useNavigate()
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [password2, setPassword2] = useState("");
-
-	// useEffect(() => {
-	// 	// console.log(username, email, password, password2)
-	// }, [username, email, password, password2]);
 
 	return (
 		<div>
@@ -34,11 +34,11 @@ export function Register() {
 				className="row g-1 justify-content-center"
 				onSubmit={(e) => [
 					e.preventDefault(),
-					Register_User(username, email, password, password2, setUser),
-					// setUsername(""),
-					// setEmail(""),
-					// setPassword(""),
-					// setPassword2(""),
+					Register_User(username, email, password, password2, setUser, nav),
+					setUsername(""),
+					setEmail(""),
+					setPassword(""),
+					setPassword2(""),
 				]}
 			>
 				<div class="form-floating mb-3 col-6">

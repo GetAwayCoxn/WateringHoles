@@ -13,10 +13,10 @@ export default function App() {
 
 	useEffect(() => {
 		const userData = async () => {
-			let r = await axUser(setUser);
-			if (r) {
-				console.log("useEffect: ", r)
-			}
+			const r = await axUser(setUser);
+			// if (r) {
+			// 	console.log("useEffect: ", r)
+			// }
 		};
 		userData();
 	}, []);

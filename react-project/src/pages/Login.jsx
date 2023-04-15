@@ -7,15 +7,15 @@ const UpdateUser = async (e, setUser, nav) => {
 	e.preventDefault();
 	let found = await axLogin(e.target[0].value, e.target[1].value, setUser);
 	if (found) {
-		setTimeout(() => {
-			nav('/', {replace: true})
-		}, 1000)
+		// setTimeout(() => {
+		nav("/");
+		// }, 1000)
 	}
 };
 
 export function Login() {
-	const { user, setUser } = useContext(UserContext);
-	const nav = useNavigate()
+	const { setUser } = useContext(UserContext);
+	const nav = useNavigate();
 	return (
 		<div>
 			<h1>Login Page</h1>
