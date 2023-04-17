@@ -1,4 +1,5 @@
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
 from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate, login, logout
 from django.core.serializers import serialize
@@ -84,3 +85,8 @@ def home(request):
     # So we can then responsibly close the file and serve the app
     file.close()
     return HttpResponse(resp)
+
+
+@api_view(["GET"])
+def error(request):
+    return render(request, "error.html")
