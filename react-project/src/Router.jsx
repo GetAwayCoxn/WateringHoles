@@ -3,33 +3,26 @@ import App from "./App";
 import { Register } from "./pages/Register";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
-import { Logout } from "./pages/Logout";
 
-const Router = createBrowserRouter(
-	[
-		{
-			path: "/",
-			element: <App />,
-			children: [
-				{
-					index: true,
-					element: <Home />,
-				},
-				{
-					path: "/register/",
-					element: <Register />,
-				},
-				{
-					path: "/login/",
-					element: <Login />,
-				},
-				// {
-				// 	path: "/logout/",
-				// 	element: <Logout />,
-				// },
-			],
-		},
-	]
-);
+const Router = createBrowserRouter([
+	{
+		path: "/",
+		element: <App />,
+		children: [
+			{
+				index: true,
+				element: <Home />,
+			},
+			{
+				path: "/register/",
+				element: <Register />,
+			},
+			{
+				path: "/login/",
+				element: <Login />,
+			},
+		],
+	},
+]);
 
 export default Router;

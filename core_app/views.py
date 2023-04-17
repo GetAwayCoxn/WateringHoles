@@ -18,7 +18,7 @@ def register_user(request):
         super_user = request.data["super"]
     if "staff" in request.data:
         staff = request.data["staff"]
-    # Return either the username or None for proper state handling in react
+    # Return JSON obj with only key as 'username' to be either the username or None for proper state handling in react
     try:
         new_user = Core_User.objects.create_user(
             username=username,
@@ -41,7 +41,7 @@ def user_login(request):
     password = request.data["password"]
     user = authenticate(username=username, password=password)
     if user is not None and user.is_active:
-        # Return either the username or None for proper state handling in react
+        # Return JSON obj with only key as 'username' to be either the username or None for proper state handling in react
         try:
             login(request._request, user)
             print(user)
@@ -66,7 +66,7 @@ def user_logout(request):
 @api_view(["GET"])
 def show_user(request):
     # Parse the user data to readable format, could add some user auth/validation here later
-    # Return either the username or None for proper state handling in react
+    # Return JSON obj with only key as 'username' to be either the username or None for proper state handling in react
     if request.user.is_authenticated:
         user_info = serialize("json", [request.user], fields=["username"])
         user_info_workable = json.loads(user_info)
