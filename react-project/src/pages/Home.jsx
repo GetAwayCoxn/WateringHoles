@@ -1,14 +1,20 @@
 import { useContext, useEffect } from "react";
-import { UserContext } from "../App";
+import { UserContext, LocationContext } from "../App";
 import { Link } from "react-router-dom";
 
 export function Home() {
 	const { user } = useContext(UserContext);
-
+	const { loc } = useContext(LocationContext);
+	console.log("home loc: ", loc)
+	
 	return (
 		<div>
 			{user ? (
-				<h1> Welcome {user}!</h1>
+				<div>
+					<h1> Welcome {user}!</h1>
+					{/* <p>{loc.lat}</p> */}
+					{/* <p>{loc.long}</p> */}
+				</div>
 			) : (
 				<div className="card">
 					<h1>Welcome to Watering Holes</h1>

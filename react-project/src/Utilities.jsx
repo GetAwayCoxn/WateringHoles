@@ -30,6 +30,13 @@ export const axUser = async (setUser) => {
 	return r.data.username;
 };
 
+export const axGetLocation = async (setLoc) => {
+	const r = await axios.get("http://ip-api.com/json/");
+	console.log("axGetLoc: ", r.data);
+	setLoc(r.data);
+	return r.data;
+};
+
 export const getToken = () => {
 	function getCookie(name) {
 		let cookieValue = null;

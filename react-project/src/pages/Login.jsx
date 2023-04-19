@@ -7,9 +7,7 @@ const UpdateUser = async (e, setUser, nav) => {
 	e.preventDefault();
 	let found = await axLogin(e.target[0].value, e.target[1].value, setUser);
 	if (found) {
-		// setTimeout(() => {
 		nav("/");
-		// }, 1000)
 	}
 };
 
