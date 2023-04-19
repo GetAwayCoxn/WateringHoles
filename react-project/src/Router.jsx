@@ -5,6 +5,8 @@ import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Search } from "./pages/Search";
 import { CityLoader } from "./pages/CitySearch";
+import { ZipLoader } from "./pages/ZipSearch";
+import { StateLoader } from "./pages/StateSearch";
 
 const Router = createBrowserRouter([
 	{
@@ -33,8 +35,9 @@ const Router = createBrowserRouter([
 				element: <Search type={"closest"} />,
 			},
 			{
-				path: "/zip/",
+				path: "/zip/:zip",
 				element: <Search type={"zip"} />,
+				loader: ZipLoader,
 			},
 			{
 				path: "/city/:city",
@@ -42,8 +45,9 @@ const Router = createBrowserRouter([
 				loader: CityLoader,
 			},
 			{
-				path: "/state/",
+				path: "/state/:st",
 				element: <Search type={"state"} />,
+				loader: StateLoader,
 			},
 		],
 	},

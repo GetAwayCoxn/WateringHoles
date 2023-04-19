@@ -44,21 +44,34 @@ export const axUserLoader = async () => {
 
 export const axGetLocationLoader = async () => {
 	const r = await axios.get("http://ip-api.com/json/");
+	console.log(r.data)
 	return r.data;
 };
 
-export const axGetCity = async (city, n, setBreweries) => {
-	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_city=${city}&per_page=${n}`
+// export const axGetCity = async (city, n, setBreweries) => {
+// 	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_city=${city}&per_page=${n}`
+// 	const r = await axios.get(sStr)
+// 	console.log('axGetCity: ', r.data)
+// 	const spreadData = r.data.map(i => {
+// 		return {...i}})
+// 	setBreweries([...spreadData])
+// 	return r.data
+// }
+
+export const axGetCityFromParams = async (city) => {
+	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_city=${city}`
 	const r = await axios.get(sStr)
-	console.log('axGetCity: ', r.data)
-	const spreadData = r.data.map(i => {
-		return {...i}})
-	setBreweries([...spreadData])
 	return r.data
 }
 
-export const axGetCityFromParams = async (city) => {
-	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_city=${city}&per_page=10`
+export const axGetZipFromParams = async (zip) => {
+	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_postal=${zip}`
+	const r = await axios.get(sStr)
+	return r.data
+}
+
+export const axGetStateFromParams = async (st) => {
+	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_state=${st}`
 	const r = await axios.get(sStr)
 	return r.data
 }

@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { LocationContext } from "../App";
-import { axGetCity, axGetCityFromParams } from "../Utilities";
+import { axGetCityFromParams } from "../Utilities";
 import { useLoaderData } from "react-router-dom";
 
 export async function CityLoader({ params }) {
@@ -10,10 +10,8 @@ export async function CityLoader({ params }) {
 
 export function CitySearch() {
 	const { loc } = useContext(LocationContext);
-	const [perPage, setPerPage] = useState(10);
-	const cityLoaderData = useLoaderData();
-	const [breweries, setBreweries] = useState([...cityLoaderData]);
-	console.log(breweries);
+	const breweries = useLoaderData();
+	
 	return (
 		<div>
 			<h1>

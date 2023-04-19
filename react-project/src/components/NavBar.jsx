@@ -48,7 +48,7 @@ export const NavBar = () => {
 										</Link>
 									</li>
 									<li>
-										<Link className="dropdown-item" to="/zip/">
+										<Link className="dropdown-item" to={`/zip/${loc.zip}`}>
 											In my zip code
 										</Link>
 									</li>
@@ -58,7 +58,7 @@ export const NavBar = () => {
 										</Link>
 									</li>
 									<li>
-										<Link className="dropdown-item" to="/state/">
+										<Link className="dropdown-item" to={`/state/${loc.regionName}`}>
 											In my state
 										</Link>
 									</li>
