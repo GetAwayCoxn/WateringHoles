@@ -1,7 +1,7 @@
-import {CitySearch} from "../components/CitySearch";
-import {ClosestSearch} from "../components/ClosestSearch";
-import {StateSearch} from "../components/StateSearch";
-import {ZipSearch} from "../components/ZipSearch";
+import {CitySearch} from "./CitySearch";
+import {ClosestSearch} from "./ClosestSearch";
+import {StateSearch} from "./StateSearch";
+import {ZipSearch} from "./ZipSearch";
 
 export function Search({ type }) {
 
