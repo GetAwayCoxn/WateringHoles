@@ -1,11 +1,20 @@
 import { useContext, useEffect } from "react";
 import { UserContext, LocationContext } from "../App";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Home() {
 	const { user } = useContext(UserContext);
 	const { loc } = useContext(LocationContext);
-	console.log("home loc: ", loc)
+
+	// temp force redirect for quicker development, remove before release
+	const navigate = useNavigate()
+	useEffect(() => {
+
+		const navTo = () => {
+			navigate(`/city/${loc.city}`)
+		}
+		setTimeout(navTo, 1000)
+	}, [])
 	
 	return (
 		<div>

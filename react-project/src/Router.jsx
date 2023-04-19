@@ -1,14 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "./App";
+import App, {AppLoader} from "./App";
 import { Register } from "./pages/Register";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Search } from "./pages/Search";
+import { CityLoader } from "./pages/CitySearch";
 
 const Router = createBrowserRouter([
 	{
 		path: "/",
 		element: <App />,
+		loader: AppLoader,
 		children: [
 			{
 				index: true,
@@ -35,8 +37,9 @@ const Router = createBrowserRouter([
 				element: <Search type={"zip"} />,
 			},
 			{
-				path: "/city/",
+				path: "/city/:city",
 				element: <Search type={"city"} />,
+				loader: CityLoader,
 			},
 			{
 				path: "/state/",

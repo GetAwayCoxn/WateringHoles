@@ -1,18 +1,19 @@
 import { useContext } from "react";
-import { UserContext } from "../App";
+import { LocationContext, UserContext } from "../App";
 import { Link, useNavigate } from "react-router-dom";
 import { axLogout } from "../Utilities";
 
 export const NavBar = () => {
 	const { user, setUser } = useContext(UserContext);
+	const { loc } = useContext(LocationContext);
 	const nav = useNavigate();
 
 	return (
 		<nav className="navbar navbar-expand-lg bg-body-tertiary">
 			<div className="container-fluid">
-				<Link className="navbar-brand" to="/">
+				<a className="navbar-brand" href="/">
 					Watering Holes
-				</Link>
+				</a>
 				{/* <a className="navbar-brand" href="/">
 					Watering Holes
 				</a> */}
@@ -52,7 +53,7 @@ export const NavBar = () => {
 										</Link>
 									</li>
 									<li>
-										<Link className="dropdown-item" to="/city/">
+										<Link className="dropdown-item" to={`/city/${loc.city}/`}>
 											In my city
 										</Link>
 									</li>

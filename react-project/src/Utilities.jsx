@@ -32,10 +32,36 @@ export const axUser = async (setUser) => {
 
 export const axGetLocation = async (setLoc) => {
 	const r = await axios.get("http://ip-api.com/json/");
-	console.log("axGetLoc: ", r.data);
+	// console.log("axGetLoc: ", r.data);
 	setLoc(r.data);
 	return r.data;
 };
+
+export const axUserLoader = async () => {
+	const r = await axios.get("/user/", {});
+	return r.data.username;
+};
+
+export const axGetLocationLoader = async () => {
+	const r = await axios.get("http://ip-api.com/json/");
+	return r.data;
+};
+
+export const axGetCity = async (city, n, setBreweries) => {
+	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_city=${city}&per_page=${n}`
+	const r = await axios.get(sStr)
+	console.log('axGetCity: ', r.data)
+	const spreadData = r.data.map(i => {
+		return {...i}})
+	setBreweries([...spreadData])
+	return r.data
+}
+
+export const axGetCityFromParams = async (city) => {
+	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_city=${city}&per_page=10`
+	const r = await axios.get(sStr)
+	return r.data
+}
 
 export const getToken = () => {
 	function getCookie(name) {
