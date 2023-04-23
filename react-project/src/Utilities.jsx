@@ -24,19 +24,6 @@ export const axLogout = async (setUser) => {
 	setUser(null);
 };
 
-export const axUser = async (setUser) => {
-	const r = await axios.get("/user/", {});
-	setUser(r.data.username);
-	return r.data.username;
-};
-
-export const axGetLocation = async (setLoc) => {
-	const r = await axios.get("http://ip-api.com/json/");
-	// console.log("axGetLoc: ", r.data);
-	setLoc(r.data);
-	return r.data;
-};
-
 export const axUserLoader = async () => {
 	const r = await axios.get("/user/", {});
 	return r.data.username;
@@ -44,19 +31,8 @@ export const axUserLoader = async () => {
 
 export const axGetLocationLoader = async () => {
 	const r = await axios.get("http://ip-api.com/json/");
-	console.log(r.data)
 	return r.data;
 };
-
-// export const axGetCity = async (city, n, setBreweries) => {
-// 	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_city=${city}&per_page=${n}`
-// 	const r = await axios.get(sStr)
-// 	console.log('axGetCity: ', r.data)
-// 	const spreadData = r.data.map(i => {
-// 		return {...i}})
-// 	setBreweries([...spreadData])
-// 	return r.data
-// }
 
 export const axGetCityFromParams = async (city) => {
 	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_city=${city}`
@@ -72,6 +48,13 @@ export const axGetZipFromParams = async (zip) => {
 
 export const axGetStateFromParams = async (st) => {
 	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_state=${st}`
+	const r = await axios.get(sStr)
+	return r.data
+}
+
+export const axGetClosestFromParams = async (lat,lon) => {
+	// https://api.openbrewerydb.org/v1/breweries?by_dist=38.8977,77.0365&per_page=3
+	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_dist=${lat},${lon}`
 	const r = await axios.get(sStr)
 	return r.data
 }

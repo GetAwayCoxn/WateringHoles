@@ -11,7 +11,7 @@ export async function ZipLoader({ params }) {
 export function ZipSearch() {
 	const { loc } = useContext(LocationContext);
 	const breweries = useLoaderData();
-	console.log(breweries);
+
 	return (
 		<div>
 			<h1>Results in my Zip Code {loc.zip}</h1>

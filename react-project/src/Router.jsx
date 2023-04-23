@@ -7,6 +7,7 @@ import { Search } from "./pages/Search";
 import { CityLoader } from "./pages/CitySearch";
 import { ZipLoader } from "./pages/ZipSearch";
 import { StateLoader } from "./pages/StateSearch";
+import { ClosestLoader } from "./pages/ClosestSearch";
 
 const Router = createBrowserRouter([
 	{
@@ -31,8 +32,9 @@ const Router = createBrowserRouter([
 				element: <Search type={null} />,
 			},
 			{
-				path: "/closest/",
+				path: "/closest/:lat/:lon",
 				element: <Search type={"closest"} />,
+				loader: ClosestLoader,
 			},
 			{
 				path: "/zip/:zip",

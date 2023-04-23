@@ -10,10 +10,10 @@ export function Home() {
 	const navigate = useNavigate()
 	useEffect(() => {
 
-		const navTo = () => {
-			navigate(`/city/${loc.city}`)
-		}
-		setTimeout(navTo, 1000)
+		// const navTo = () => {
+		// 	navigate(`/city/${loc.city}`)
+		// }
+		// setTimeout(navTo, 1000)
 	}, [])
 	
 	return (

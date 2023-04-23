@@ -43,7 +43,7 @@ export const NavBar = () => {
 								</a>
 								<ul className="dropdown-menu">
 									<li>
-										<Link className="dropdown-item" to="/closest/">
+										<Link className="dropdown-item" to={`/closest/${loc.lat}/${loc.lon}`}>
 											Close to me
 										</Link>
 									</li>
