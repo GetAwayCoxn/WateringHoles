@@ -16,8 +16,9 @@ export async function AppLoader() {
 
 export default function App() {
 	const lData = useLoaderData()
-	const [user, setUser] = useState(lData[1]);
+	const usernameEdited = lData[1][0].toUpperCase() + lData[1].substring(1)
 	const [loc, setLoc] = useState({...lData[0]});
+	const [user, setUser] = useState(usernameEdited);
 	
 	getToken();
 
