@@ -31,7 +31,7 @@ export const axUserLoader = async () => {
 
 export const axProfileLoader = async (username) => {
 	const r = await axios.get(`/profile/${username}`)
-	return r.data.username
+	return r.data
 }
 
 export const axGetLocationLoader = async () => {

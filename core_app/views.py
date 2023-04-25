@@ -77,8 +77,13 @@ def show_user(request):
 
 @api_view(["GET"])
 def user_profile(request, username):
-    print("user_profile", username)
-    return JsonResponse({"username": username})
+    # Fetch user profile data from the database
+    data = Core_User.objects.get(username=username)
+    user = {
+        "username" : data.username,
+        "email" : data.email,
+    }
+    return JsonResponse(user)
 
 
 # Serve the react app
@@ -95,4 +100,5 @@ def home(request):
 
 @api_view(["GET"])
 def error(request):
+    # Serve custom error page from the backend for all unhandled url requests
     return render(request, "error.html")
