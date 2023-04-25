@@ -8,7 +8,7 @@ import { CityLoader } from "./pages/CitySearch";
 import { ZipLoader } from "./pages/ZipSearch";
 import { StateLoader } from "./pages/StateSearch";
 import { ClosestLoader } from "./pages/ClosestSearch";
-import Profile from "./pages/Profile";
+import { Profile, ProfileLoader } from "./pages/Profile";
 
 const Router = createBrowserRouter([
 	{
@@ -53,8 +53,9 @@ const Router = createBrowserRouter([
 				loader: StateLoader,
 			},
 			{
-				path: "/profile/",
-				element: <Profile />
+				path: "/profile/:user",
+				element: <Profile />,
+				loader: ProfileLoader,
 			},
 		],
 	},

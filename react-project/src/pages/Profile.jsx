@@ -1,13 +1,18 @@
-import { useContext } from "react"
-import { UserContext } from "../App"
+import { useContext } from "react";
+import { UserContext } from "../App";
+import { useLoaderData } from "react-router-dom";
+import { axProfileLoader } from "../Utilities";
 
-const Profile = () => {
-    const {user} = useContext(UserContext)
-  return (
-    <div>
-          <h1>Profile for {user}</h1>
-    </div>
-  )
-}
+export const ProfileLoader = async ({ params }) => {
+	const usernameLower = axProfileLoader(params.user.toLowerCase());
+	return usernameLower;
+};
 
-export default Profile
+export const Profile = () => {
+	const user = useLoaderData();
+	return (
+		<div>
+			<h1>Profile for {user}</h1>
+		</div>
+	);
+};

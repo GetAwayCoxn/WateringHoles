@@ -29,6 +29,11 @@ export const axUserLoader = async () => {
 	return r.data.username;
 };
 
+export const axProfileLoader = async (username) => {
+	const r = await axios.get(`/profile/${username}`)
+	return r.data.username
+}
+
 export const axGetLocationLoader = async () => {
 	const r = await axios.get("http://ip-api.com/json/");
 	return r.data;

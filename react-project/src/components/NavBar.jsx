@@ -99,7 +99,7 @@ export const NavBar = () => {
 									</a>
 									<ul class="dropdown-menu">
 										<li>
-											<Link class="dropdown-item" to="/profile/">
+											<Link class="dropdown-item" to={`/profile/${user}`}>
 												Profile
 											</Link>
 										</li>

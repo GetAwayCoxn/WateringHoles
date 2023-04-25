@@ -75,6 +75,12 @@ def show_user(request):
     return JsonResponse({"username": None})
 
 
+@api_view(["GET"])
+def user_profile(request, username):
+    print("user_profile", username)
+    return JsonResponse({"username": username})
+
+
 # Serve the react app
 @api_view(["GET"])
 def home(request):
