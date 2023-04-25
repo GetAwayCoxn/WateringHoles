@@ -10,3 +10,4 @@ class Core_User(AbstractUser):
 
     def __str__(self):
         return f"Username: {self.username} Email: {self.email}"
+

@@ -21,8 +21,6 @@ export function Home() {
 			{user ? (
 				<div>
 					<h1> Welcome {user}!</h1>
-					{/* <p>{loc.lat}</p> */}
-					{/* <p>{loc.long}</p> */}
 				</div>
 			) : (
 				<div className="card">

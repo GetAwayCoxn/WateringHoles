@@ -59,7 +59,6 @@ export const axGetClosestFromParams = async (lat,lon) => {
 }
 
 export const axGetSearchFromParams = async (str) => {
-	// https://api.openbrewerydb.org/v1/breweries/search?query={search}
 	const sStr = `https://api.openbrewerydb.org/v1/breweries/search?query=${str}`
 	const r = await axios.get(sStr)
 	return r.data
