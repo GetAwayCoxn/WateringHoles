@@ -5,6 +5,10 @@ import {ZipSearch} from "./ZipSearch";
 
 export function Search({ type }) {
 
+	const HandleSearch = (e) => {
+		e.preventDefault()
+	}
+
 	if (type) {
 		if (type == "closest") {
 			return <ClosestSearch />;
@@ -19,6 +23,11 @@ export function Search({ type }) {
 	return (
 		<div>
 			<h1>Seach by Name</h1>
+			<hr />
+			<form onSubmit={() => HandleSearch(e)}>
+				<input type="text" placeholder="enter brewery name to search for" />
+				<button type="submit">Search</button>
+			</form>
 		</div>
 	);
 }

@@ -53,8 +53,14 @@ export const axGetStateFromParams = async (st) => {
 }
 
 export const axGetClosestFromParams = async (lat,lon) => {
-	// https://api.openbrewerydb.org/v1/breweries?by_dist=38.8977,77.0365&per_page=3
 	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_dist=${lat},${lon}`
+	const r = await axios.get(sStr)
+	return r.data
+}
+
+export const axGetSearchFromParams = async (str) => {
+	// https://api.openbrewerydb.org/v1/breweries/search?query={search}
+	const sStr = `https://api.openbrewerydb.org/v1/breweries/search?query=${str}`
 	const r = await axios.get(sStr)
 	return r.data
 }
