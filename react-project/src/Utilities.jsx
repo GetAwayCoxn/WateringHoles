@@ -24,11 +24,46 @@ export const axLogout = async (setUser) => {
 	setUser(null);
 };
 
-export const axUser = async (setUser) => {
+export const axUserLoader = async () => {
 	const r = await axios.get("/user/", {});
-	setUser(r.data.username);
 	return r.data.username;
 };
+
+export const axGetLocationLoader = async () => {
+	const r = await axios.get("http://ip-api.com/json/");
+	return r.data;
+};
+
+export const axGetCityFromParams = async (city) => {
+	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_city=${city}`
+	const r = await axios.get(sStr)
+	return r.data
+}
+
+export const axGetZipFromParams = async (zip) => {
+	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_postal=${zip}`
+	const r = await axios.get(sStr)
+	return r.data
+}
+
+export const axGetStateFromParams = async (st) => {
+	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_state=${st}`
+	const r = await axios.get(sStr)
+	return r.data
+}
+
+export const axGetClosestFromParams = async (lat,lon) => {
+	const sStr = `https://api.openbrewerydb.org/v1/breweries?by_dist=${lat},${lon}`
+	const r = await axios.get(sStr)
+	return r.data
+}
+
+export const axGetSearchFromParams = async (str) => {
+	// https://api.openbrewerydb.org/v1/breweries/search?query={search}
+	const sStr = `https://api.openbrewerydb.org/v1/breweries/search?query=${str}`
+	const r = await axios.get(sStr)
+	return r.data
+}
 
 export const getToken = () => {
 	function getCookie(name) {
