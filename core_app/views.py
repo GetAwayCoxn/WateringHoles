@@ -33,6 +33,28 @@ def register_user(request):
     except Exception as e:
         print(e)
         return JsonResponse({"username": None})
+    
+
+@api_view(["POST"])
+def update_user(request):
+    # Get the user
+    username = request.data["username"]
+    curr_user = Core_User.objects.get(username=username)
+    # Update the user
+    try:
+        curr_user.email = request.data["email"]
+        curr_user.first_name = request.data["first"]
+        curr_user.last_name = request.data["last"]
+        if request.data["currPassword"]:
+            password = request.data["currPassword"]
+            user = authenticate(username=username, password=password)
+            if user is not None and user.is_active:
+                curr_user.set_password(request.data["password1"])
+        curr_user.save()
+        return JsonResponse({"success": True})
+    except Exception as e:
+        print(e)
+        return JsonResponse({"success": False})
 
 
 @api_view(["POST"])
@@ -45,7 +67,6 @@ def user_login(request):
         # Return JSON obj with only key as 'username' to be either the username or None for proper state handling in react
         try:
             login(request._request, user)
-            print(user)
             return JsonResponse({"username": user.username})
         except Exception as e:
             print(e)
@@ -82,6 +103,12 @@ def user_profile(request, username):
     user = {
         "username" : data.username,
         "email" : data.email,
+        "first_name": data.first_name,
+        "last_name": data.last_name,
+        "bio" : data.bio,
+        "dob" : data.dob,
+        "last_updated" : data.last_updated,
+        "date_created" : data.date_created,
     }
     return JsonResponse(user)
 

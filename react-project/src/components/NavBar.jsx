@@ -89,7 +89,7 @@ export const NavBar = () => {
 							<ul class="navbar-nav">
 								<li class="nav-item dropdown">
 									<a
-										class="nav-link dropdown-toggle"
+										class="nav-link dropdown-toggle text-capitalize"
 										href="#"
 										role="button"
 										data-bs-toggle="dropdown"
