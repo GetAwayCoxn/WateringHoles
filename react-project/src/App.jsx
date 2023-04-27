@@ -16,8 +16,8 @@ export async function AppLoader() {
 
 export default function App() {
 	const lData = useLoaderData()
-	const [user, setUser] = useState(lData[1]);
 	const [loc, setLoc] = useState({...lData[0]});
+	const [user, setUser] = useState(lData[1]);
 	
 	getToken();
 

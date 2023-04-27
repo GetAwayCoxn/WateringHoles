@@ -1,13 +1,20 @@
-import {CitySearch} from "./CitySearch";
-import {ClosestSearch} from "./ClosestSearch";
-import {StateSearch} from "./StateSearch";
-import {ZipSearch} from "./ZipSearch";
+import { useContext, useState } from "react";
+import { CitySearch } from "./CitySearch";
+import { ClosestSearch } from "./ClosestSearch";
+import { StateSearch } from "./StateSearch";
+import { ZipSearch } from "./ZipSearch";
+import { axGetSearchFromParams } from "../Utilities";
+import { LocationContext } from "../App";
 
 export function Search({ type }) {
+	const { loc } = useContext(LocationContext);
+	const [breweries, setBreweries] = useState(null);
 
-	const HandleSearch = (e) => {
-		e.preventDefault()
-	}
+	const HandleSearch = async (e) => {
+		e.preventDefault();
+		const r = await axGetSearchFromParams(e.target[0].value);
+		setBreweries(r);
+	};
 
 	if (type) {
 		if (type == "closest") {
@@ -23,11 +30,50 @@ export function Search({ type }) {
 	return (
 		<div>
 			<h1>Seach by Name</h1>
-			<hr />
-			<form onSubmit={() => HandleSearch(e)}>
-				<input type="text" placeholder="enter brewery name to search for" />
-				<button type="submit">Search</button>
-			</form>
+			{breweries ? (
+				<div className="container text-align-center">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Name</th>
+								<th scope="col">Website</th>
+								<th scope="col">Phone</th>
+								<th scope="col">Address</th>
+								<th scope="col">Add Favorite</th>
+							</tr>
+						</thead>
+						<tbody>
+							{breweries.map((brewery) => (
+								<tr>
+									<th scope="row">{brewery.name}</th>
+									<td>
+										<a href={brewery.website_url} target="_blank">
+											{brewery.website_url}
+										</a>
+									</td>
+									<td>{brewery.phone}</td>
+									<td>
+										{brewery.address_1} <br /> {brewery.city}, {loc.region}{" "}
+										{brewery.postal_code}
+									</td>
+									<td>
+										<button className="btn btn-primary">Add</button>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+					<button className="btn btn-primary" onClick={() => setBreweries(null)}>Search Again</button>
+				</div>
+			) : (
+				<div>
+					<hr />
+					<form onSubmit={(e) => HandleSearch(e)}>
+						<input type="text" placeholder="enter brewery name to search for" />
+						<button type="submit">Search</button>
+					</form>
+				</div>
+			)}
 		</div>
 	);
 }

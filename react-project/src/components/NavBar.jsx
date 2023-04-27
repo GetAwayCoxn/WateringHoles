@@ -12,11 +12,15 @@ export const NavBar = () => {
 		<nav className="navbar navbar-expand-lg bg-body-tertiary">
 			<div className="container-fluid">
 				<a className="navbar-brand" href="/">
+					<img
+						src="/static/beer-icon.svg"
+						alt="Watering Holes Logo"
+						width="30"
+						height="24"
+						class="d-inline-block align-text-top"
+					></img>
 					Watering Holes
 				</a>
-				{/* <a className="navbar-brand" href="/">
-					Watering Holes
-				</a> */}
 				<button
 					className="navbar-toggler"
 					type="button"
@@ -43,7 +47,10 @@ export const NavBar = () => {
 								</a>
 								<ul className="dropdown-menu">
 									<li>
-										<Link className="dropdown-item" to={`/closest/${loc.lat}/${loc.lon}`}>
+										<Link
+											className="dropdown-item"
+											to={`/closest/${loc.lat}/${loc.lon}`}
+										>
 											Close to me
 										</Link>
 									</li>
@@ -58,7 +65,10 @@ export const NavBar = () => {
 										</Link>
 									</li>
 									<li>
-										<Link className="dropdown-item" to={`/state/${loc.regionName}`}>
+										<Link
+											className="dropdown-item"
+											to={`/state/${loc.regionName}`}
+										>
 											In my state
 										</Link>
 									</li>
@@ -75,13 +85,45 @@ export const NavBar = () => {
 						)}
 					</ul>
 					{user ? (
-						<button
-							className="btn btn-primary m-2"
-							type="button"
-							onClick={() => [axLogout(setUser), nav("/")]}
-						>
-							Logout
-						</button>
+						<div>
+							<ul class="navbar-nav">
+								<li class="nav-item dropdown">
+									<a
+										class="nav-link dropdown-toggle text-capitalize"
+										href="#"
+										role="button"
+										data-bs-toggle="dropdown"
+										aria-expanded="false"
+									>
+										{user}
+									</a>
+									<ul class="dropdown-menu">
+										<li>
+											<Link class="dropdown-item" to={`/profile/${user}`}>
+												Profile
+											</Link>
+										</li>
+										{/* <li>
+											<Link class="dropdown-item" to="#">
+												Another action
+											</Link>
+										</li> */}
+										<li>
+											<hr className="dropdown-divider" />
+										</li>
+										<li>
+											<button
+												className="btn btn-primary m-2"
+												type="button"
+												onClick={() => [axLogout(setUser), nav("/")]}
+											>
+												Logout
+											</button>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
 					) : (
 						<Link to="/login/">
 							<button className="btn btn-primary m-2" type="button">

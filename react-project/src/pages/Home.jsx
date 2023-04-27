@@ -20,9 +20,7 @@ export function Home() {
 		<div>
 			{user ? (
 				<div>
-					<h1> Welcome {user}!</h1>
-					{/* <p>{loc.lat}</p> */}
-					{/* <p>{loc.long}</p> */}
+					<h1 className="text-capitalize"> Welcome {user}!</h1>
 				</div>
 			) : (
 				<div className="card">

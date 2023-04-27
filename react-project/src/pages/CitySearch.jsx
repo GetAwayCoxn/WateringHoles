@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { LocationContext } from "../App";
-import { axGetCityFromParams } from "../Utilities";
+import { axAddFavorite, axGetCityFromParams } from "../Utilities";
 import { useLoaderData } from "react-router-dom";
 
 export async function CityLoader({ params }) {
@@ -11,7 +11,7 @@ export async function CityLoader({ params }) {
 export function CitySearch() {
 	const { loc } = useContext(LocationContext);
 	const breweries = useLoaderData();
-	
+
 	return (
 		<div>
 			<h1>
@@ -38,23 +38,19 @@ export function CitySearch() {
 							</td>
 							<td>{brewery.phone}</td>
 							<td>
-								{brewery.address_1} <br/> {brewery.city}, {loc.region}{" "}
+								{brewery.address_1} <br /> {brewery.city}, {loc.region}{" "}
 								{brewery.postal_code}
 							</td>
-							<td><button className="btn btn-primary">Add</button></td>
+							<td>
+								<button
+									onClick={() => axAddFavorite(brewery)}
+									className="btn btn-primary"
+								>
+									Add
+								</button>
+							</td>
 						</tr>
 					))}
-					{/* <tr>
-						<th scope="row">2</th>
-						<td>Jacob</td>
-						<td>Thornton</td>
-						<td>@fat</td>
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td colspan="2">Larry the Bird</td>
-						<td>@twitter</td>
-					</tr> */}
 				</tbody>
 			</table>
 		</div>
