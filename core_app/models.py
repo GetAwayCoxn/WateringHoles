@@ -22,23 +22,23 @@ class Core_User(AbstractUser):
 class Brewery(models.Model):
     brewery_id = models.CharField(max_length=255, unique=True)
     name = models.CharField(max_length=100)
-    website_url = models.CharField(max_length=100, blank=True)
-    phone = models.CharField(max_length=100, blank=True)
-    address_1 = models.CharField(max_length=100, blank=True)
-    city = models.CharField(max_length=100, blank=True)
-    state_province = models.CharField(max_length=100, blank=True)
-    postal_code = models.CharField(max_length=100, blank=True)
-    country = models.CharField(max_length=100, blank=True)
-    longitude = models.CharField(max_length=100, blank=True)
-    latitude = models.CharField(max_length=100, blank=True)
-    state = models.CharField(max_length=100, blank=True)
+    website_url = models.CharField(max_length=100, null=True)
+    phone = models.CharField(max_length=100, null=True)
+    address_1 = models.CharField(max_length=100, null=True)
+    city = models.CharField(max_length=100, null=True)
+    state_province = models.CharField(max_length=100, null=True)
+    postal_code = models.CharField(max_length=100, null=True)
+    country = models.CharField(max_length=100, null=True)
+    longitude = models.CharField(max_length=100, null=True)
+    latitude = models.CharField(max_length=100, null=True)
+    state = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return f"Brewery Model for {self.name}"
     
 
 class Favorite(models.Model):
-    brewery_id = models.ForeignKey(Brewery, on_delete=models.CASCADE)
+    brewery = models.ForeignKey(Brewery, on_delete=models.CASCADE)
     user = models.ForeignKey(Core_User, on_delete=models.CASCADE, related_name="favorites")
 
     def __str__(self):
