@@ -15,16 +15,25 @@ export const axUpdateUser = async (
 	first,
 	last,
 	email,
+	bio,
 	currPassword,
+	password1
 ) => {
 	const r = await axios.post("/update/", {
 		username: username,
 		first: first,
 		last: last,
 		email: email,
+		bio: bio,
 		currPassword: currPassword,
+		newpassword: password1,
 	});
 	return r.data;
+};
+
+export const axAddFavorite = async (brewery) => {
+	const r = await axios.post("/add/", brewery);
+	console.log(r.data)
 };
 
 export const axLogin = async (username, password, setUser) => {

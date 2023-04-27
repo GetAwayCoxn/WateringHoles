@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate, login, logout
 from django.core.serializers import serialize
 import json
-from .models import Core_User
+from .models import Core_User, Favorite
 
 
 @api_view(["POST"])
@@ -42,6 +42,7 @@ def update_user(request):
     curr_user = Core_User.objects.get(username=username)
     # Update the user
     try:
+        curr_user.bio = request.data["bio"]
         curr_user.email = request.data["email"]
         curr_user.first_name = request.data["first"]
         curr_user.last_name = request.data["last"]
@@ -49,12 +50,34 @@ def update_user(request):
             password = request.data["currPassword"]
             user = authenticate(username=username, password=password)
             if user is not None and user.is_active:
-                curr_user.set_password(request.data["password1"])
+                curr_user.set_password(request.data["newpassword"])
         curr_user.save()
         return JsonResponse({"success": True})
     except Exception as e:
         print(e)
         return JsonResponse({"success": False})
+    
+
+@api_view(["POST"])
+def add_favorite(request):
+    if request.user.is_authenticated:
+        user_info = serialize("json", [request.user], fields=["username"])
+        user_info_workable = json.loads(user_info)
+        curr_user = Core_User.objects.get(username=user_info_workable[0]["fields"]["username"])
+        try:
+            brew_id = request.data.get("id")
+            curr_id = curr_user.id
+            fav = Favorite.objects.filter(brewery_id=brew_id, user_id=curr_id)
+            if len(fav) == 0:
+                try:
+                    Favorite.objects.create(brewery_id=brew_id, user_id=curr_id)
+                    return JsonResponse({"success": True, "added": True})
+                except Exception as e:
+                    return JsonResponse({"success": True, "added": False})
+        except Exception as e:
+            print(e)
+            return JsonResponse({"success": False})
+    return JsonResponse({"success": False})
 
 
 @api_view(["POST"])

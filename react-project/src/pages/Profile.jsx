@@ -12,6 +12,7 @@ export const Profile = () => {
 	const [first, setFirst] = useState(profile.first_name);
 	const [last, setLast] = useState(profile.last_name);
 	const [email, setEmail] = useState(profile.email);
+	const [bio, setBio] = useState(profile.bio);
 	const [currPassword, setCurrPassword] = useState(null);
 	const [password1, setPassword1] = useState(null);
 	const [password2, setPassword2] = useState(null);
@@ -20,25 +21,28 @@ export const Profile = () => {
 		username,
 		first,
 		last,
-		email,
+        email,
+        bio,
 		currPassword,
 		password1,
 		password2
 	) => {
-        if (password1 && password1 !== password2) {
-            // handle mis match password update
-            $("#mismatchModal").modal("show");
-        } else if (password1 && !currPassword) {
-            // handle missing curr password
-            $("#missingPasswordModal").modal("show");
-        } else {
-            // axios call to update the user profile in django
+		if (password1 && password1 !== password2) {
+			// handle mis match password update
+			$("#mismatchModal").modal("show");
+		} else if (password1 && !currPassword) {
+			// handle missing curr password
+			$("#missingPasswordModal").modal("show");
+		} else {
+			// axios call to update the user profile in django
 			const r = await axUpdateUser(
 				username,
 				first,
 				last,
-				email,
+                email,
+                bio,
 				currPassword,
+				password1
 			);
 			r.success
 				? console.log("updated user")
@@ -68,126 +72,196 @@ export const Profile = () => {
 								profile.username,
 								first,
 								last,
-								email,
+                                email,
+                                bio,
 								currPassword,
 								password1,
 								password2
 							),
 						]}
 					>
-						<div class="form-floating mb-3 col-6">
-							<input
-								type="text"
-								class="form-control"
-								id="FirstNameInput"
-								placeholder="First Name"
-								value={first}
-								onChange={(e) => setFirst(e.target.value)}
-							/>
-							<label for="FirstNameInput">First Name</label>
+						<div className="row justify-content-evenly">
+							<div class="form-floating mb-3 col-6">
+								<input
+									type="text"
+									class="form-control"
+									id="FirstNameInput"
+									placeholder="First Name"
+									value={first}
+									onChange={(e) => setFirst(e.target.value)}
+								/>
+								<label for="FirstNameInput">First Name</label>
+							</div>
+							<div class="form-floating mb-3 col-6">
+								<input
+									type="text"
+									class="form-control"
+									id="LastNameInput"
+									placeholder="Last Name"
+									value={last}
+									onChange={(e) => setLast(e.target.value)}
+								/>
+								<label for="LastNameInput">Last Name</label>
+							</div>
 						</div>
-						<div class="form-floating mb-3 col-6">
-							<input
-								type="text"
-								class="form-control"
-								id="LastNameInput"
-								placeholder="Last Name"
-								value={last}
-								onChange={(e) => setLast(e.target.value)}
-							/>
-							<label for="LastNameInput">Last Name</label>
+						<div className="row justify-content-evenly">
+							<div class="form-floating mb-3 col-12">
+								<input
+									type="email"
+									class="form-control"
+									id="EmailInput"
+									placeholder="email@email.com"
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
+								/>
+								<label for="EmailInput">Email</label>
+							</div>
 						</div>
-						<div class="form-floating mb-3 col-12">
-							<input
-								type="email"
-								class="form-control"
-								id="EmailInput"
-								placeholder="email@email.com"
-								value={email}
-								onChange={(e) => setEmail(e.target.value)}
-							/>
-							<label for="EmailInput">Email</label>
+						<div className="row justify-content-evenly">
+							<div class="form-floating mb-3 col-12">
+								<textarea
+									class="form-control"
+									id="BioInput"
+                                    rows="3"
+                                    value={bio}
+									onChange={(e) => setBio(e.target.value)}
+								>
+								</textarea>
+								<label for="BioInput" class="form-label">
+									A short about me statement
+								</label>
+							</div>
 						</div>
-						<div class="form-floating col-5 mb-3">
-							<input
-								type="password"
-								class="form-control"
-								id="PasswordInput"
-								placeholder="Example password placeholder"
-								value={currPassword}
-								onChange={(e) => setCurrPassword(e.target.value)}
-								// required
-							/>
-							<label for="PasswordInput" class="form-label">
-								Current Password
-							</label>
+						<div className="row justify-content-evenly">
+							<div class="form-floating col-6 mb-3">
+								<input
+									type="password"
+									class="form-control"
+									id="PasswordInput"
+									placeholder="Example password placeholder"
+									value={password1}
+									onChange={(e) => setPassword1(e.target.value)}
+								/>
+								<label for="PasswordInput" class="form-label">
+									New Password
+								</label>
+							</div>
+							<div class="form-floating col-6 mb-3">
+								<input
+									type="password"
+									class="form-control"
+									id="PasswordConfirm"
+									placeholder="Another password placeholder"
+									value={password2}
+									onChange={(e) => setPassword2(e.target.value)}
+								/>
+								<label for="PasswordConfirm" class="form-label">
+									Confirm Password
+								</label>
+							</div>
 						</div>
-						<div class="form-floating col-5 mb-3">
-							<input
-								type="password"
-								class="form-control"
-								id="PasswordInput"
-								placeholder="Example password placeholder"
-								value={password1}
-								onChange={(e) => setPassword1(e.target.value)}
-								// required
-							/>
-							<label for="PasswordInput" class="form-label">
-								New Password
-							</label>
-						</div>
-						<div class="form-floating col-5 mb-3">
-							<input
-								type="password"
-								class="form-control"
-								id="PasswordConfirm"
-								placeholder="Another password placeholder"
-								value={password2}
-								onChange={(e) => setPassword2(e.target.value)}
-								// required
-							/>
-							<label for="PasswordConfirm" class="form-label">
-								Confirm Password
-							</label>
-						</div>
-						<div className="col-3 mb-3">
-							<button className="btn btn-lg btn-primary">Save Changes</button>
+						<div className="row justify-content-evenly">
+							<div class="form-floating col-5 mb-3">
+								<input
+									type="password"
+									class="form-control"
+									id="PasswordInput"
+									placeholder="Example password placeholder"
+									value={currPassword}
+									onChange={(e) => setCurrPassword(e.target.value)}
+								/>
+								<label for="PasswordInput" class="form-label">
+									Current Password
+								</label>
+							</div>
+							<div className="col-5 mb-3">
+								<button className="btn btn-lg btn-primary">Save Changes</button>
+							</div>
 						</div>
 					</form>
 				</div>
             </div>
-            <div class="modal fade" id="mismatchModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Watering Holes Notificaion</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Your new passwords do not match
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Go Back</button>
-                    </div>
-                    </div>
+            <div className="row justify-content-evenly">
+                <div className="col-3 mb-3">
+                    
+                </div>
+                <div className="col-9 mb-3">
+
                 </div>
             </div>
-            <div class="modal fade" id="missingPasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Watering Holes Notificaion</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        If you trying to update your password, you must enter your current password as well
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Go Back</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
+			<div
+				class="modal fade"
+				id="mismatchModal"
+				data-bs-backdrop="static"
+				data-bs-keyboard="false"
+				tabindex="-1"
+				aria-labelledby="staticBackdropLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="staticBackdropLabel">
+								Watering Holes Notificaion
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">Your new passwords do not match</div>
+						<div class="modal-footer">
+							<button
+								type="button"
+								class="btn btn-secondary"
+								data-bs-dismiss="modal"
+							>
+								Go Back
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div
+				class="modal fade"
+				id="missingPasswordModal"
+				data-bs-backdrop="static"
+				data-bs-keyboard="false"
+				tabindex="-1"
+				aria-labelledby="staticBackdropLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="staticBackdropLabel">
+								Watering Holes Notificaion
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							If you trying to update your password, you must enter your current
+							password as well
+						</div>
+						<div class="modal-footer">
+							<button
+								type="button"
+								class="btn btn-secondary"
+								data-bs-dismiss="modal"
+							>
+								Go Back
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 };

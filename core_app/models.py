@@ -18,3 +18,7 @@ class Core_User(AbstractUser):
     def __str__(self):
         return f"Username: {self.username} Email: {self.email}"
 
+
+class Favorite(models.Model):
+    brewery_id = models.CharField(max_length=255)
+    user = models.ForeignKey(Core_User, on_delete=models.CASCADE, related_name="favorites")
