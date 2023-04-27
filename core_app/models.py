@@ -17,8 +17,29 @@ class Core_User(AbstractUser):
 
     def __str__(self):
         return f"Username: {self.username} Email: {self.email}"
+    
 
+class Brewery(models.Model):
+    brewery_id = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=100)
+    website_url = models.CharField(max_length=100)
+    phone = models.CharField(max_length=100)
+    address_1 = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    state_province = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    longitude = models.CharField(max_length=100)
+    latitude = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"Brewery Model for {self.name}"
+    
 
 class Favorite(models.Model):
-    brewery_id = models.CharField(max_length=255)
+    brewery_id = models.ForeignKey(Brewery, on_delete=models.CASCADE)
     user = models.ForeignKey(Core_User, on_delete=models.CASCADE, related_name="favorites")
+
+    def __str__(self):
+        return f"Favorite Model User_id:{self.user_id}"
