@@ -1,11 +1,10 @@
 import { useContext } from "react";
 import { LocationContext } from "../App";
-import { axGetClosestFromParams } from "../Utilities";
+import { axAddFavorite, axGetClosestFromParams } from "../Utilities";
 import { useLoaderData } from "react-router-dom";
 
 export async function ClosestLoader({ params }) {
-	const r = await axGetClosestFromParams(params.lat,params.lon);
-	return r;
+	return await axGetClosestFromParams(params.lat,params.lon);
 }
 
 export function ClosestSearch() {

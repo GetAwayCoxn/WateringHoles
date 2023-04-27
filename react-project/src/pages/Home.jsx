@@ -1,26 +1,17 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext, LocationContext } from "../App";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
-import { axGetFavorites } from "../Utilities";
+import { axDeleteFavorite, axGetFavorites } from "../Utilities";
 
 export async function HomeLoader() {
-	const r = await axGetFavorites();
-	return r;
+	return await axGetFavorites();
 }
 
 export function Home() {
 	const { user } = useContext(UserContext);
 	const { loc } = useContext(LocationContext);
 	const breweries = useLoaderData();
-
-	// temp force redirect for quicker development, remove before release
-	const navigate = useNavigate();
-	useEffect(() => {
-		// const navTo = () => {
-		// 	navigate(`/city/${loc.city}`)
-		// }
-		// setTimeout(navTo, 1000)
-	}, []);
+	const nav = useNavigate();
 
 	return (
 		<div>
@@ -53,8 +44,9 @@ export function Home() {
 									</td>
 									<td>
 										<button
-											// onClick={() => axDeleteFavorite(brewery)}
-											// className="btn btn-primary"
+											onClick={() => axDeleteFavorite(brewery)}
+											// onClick={() => [axDeleteFavorite(brewery), nav('/')]}
+											className="btn btn-primary"
 										>
 											Delete
 										</button>

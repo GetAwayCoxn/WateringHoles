@@ -4,8 +4,7 @@ import { axAddFavorite, axGetCityFromParams } from "../Utilities";
 import { useLoaderData } from "react-router-dom";
 
 export async function CityLoader({ params }) {
-	const r = await axGetCityFromParams(params.city);
-	return r;
+	return await axGetCityFromParams(params.city);
 }
 
 export function CitySearch() {

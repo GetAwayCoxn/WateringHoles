@@ -3,7 +3,7 @@ import { CitySearch } from "./CitySearch";
 import { ClosestSearch } from "./ClosestSearch";
 import { StateSearch } from "./StateSearch";
 import { ZipSearch } from "./ZipSearch";
-import { axGetSearchFromParams } from "../Utilities";
+import { axAddFavorite, axGetSearchFromParams } from "../Utilities";
 import { LocationContext } from "../App";
 
 export function Search({ type }) {

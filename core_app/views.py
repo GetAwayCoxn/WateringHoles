@@ -100,41 +100,23 @@ def add_favorite(request):
 
 @api_view(["POST"])
 def delete_favorite(request):
-    # if request.user.is_authenticated:
-    #     user_info = serialize("json", [request.user], fields=["username"])
-    #     user_info_workable = json.loads(user_info)
-    #     curr_user = Core_User.objects.get(username=user_info_workable[0]["fields"]["username"])
-    #     try:
-    #         request_id = request.data.get("id")
-    #         brewery = Brewery.objects.filter(brewery_id=request_id)
-    #         if len(brewery) == 0:
-    #             Brewery.objects.create(
-                    # brewery_id=request.data.get("id"),
-                    # name=request.data.get("name"),
-                    # website_url=request.data.get("website_url"),
-                    # phone=request.data.get("phone"),
-                    # address_1=request.data.get("address_1"),
-                    # city=request.data.get("city"),
-                    # state_province=request.data.get("state_province"),
-                    # postal_code=request.data.get("postal_code"),
-                    # country=request.data.get("country"),
-                    # longitude=request.data.get("longitude"),
-                    # latitude=request.data.get("latitude"),
-                    # state=request.data.get("state"),
-    #             )
-    #         curr_brew = Brewery.objects.get(brewery_id=request_id)
-    #         brew_id = curr_brew.id
-    #         curr_id = curr_user.id
-    #         fav = Favorite.objects.filter(brewery_id=brew_id, user_id=curr_id)
-    #         if len(fav) == 0:
-    #             try:
-    #                 Favorite.objects.create(brewery_id=brew_id, user_id=curr_id)
-    #                 return JsonResponse({"success": True, "added": True})
-    #             except Exception as e:
-    #                 return JsonResponse({"success": True, "added": False})
-    #     except Exception as e:
-    #         print(e)
-    #         return JsonResponse({"success": False})
+    if request.user.is_authenticated:
+        user_info = serialize("json", [request.user], fields=["username"])
+        user_info_workable = json.loads(user_info)
+        curr_user = Core_User.objects.get(username=user_info_workable[0]["fields"]["username"])
+        try:
+            request_id = request.data.get("brewery_id")            
+            curr_brew = Brewery.objects.get(brewery_id=request_id)
+            brew_id = curr_brew.id
+            curr_id = curr_user.id
+            try:
+                fav = Favorite.objects.filter(brewery_id=brew_id, user_id=curr_id).delete()
+                return JsonResponse({"success": True, "deleted": True})
+            except Exception as e:
+                return JsonResponse({"success": True, "deleted": False})
+        except Exception as e:
+            print(e)
+            return JsonResponse({"success": False})
     return JsonResponse({"success": False})
 
 
@@ -169,7 +151,7 @@ def get_favorites(request):
         except Exception as e:
             print(e)
             return JsonResponse({"success": False})
-    return JsonResponse({"success": False})
+    return JsonResponse({"breweries":[]})
 
 
 @api_view(["POST"])

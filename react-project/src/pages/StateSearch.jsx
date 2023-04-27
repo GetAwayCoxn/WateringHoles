@@ -1,11 +1,10 @@
 import { useContext } from "react";
 import { LocationContext } from "../App";
-import { axGetStateFromParams } from "../Utilities";
+import { axAddFavorite, axGetStateFromParams } from "../Utilities";
 import { useLoaderData } from "react-router-dom";
 
 export async function StateLoader({ params }) {
-	const r = await axGetStateFromParams(params.st);
-	return r;
+	return await axGetStateFromParams(params.st);
 }
 
 export function StateSearch() {

@@ -1,11 +1,10 @@
 import { useContext } from "react";
 import { LocationContext } from "../App";
-import { axGetZipFromParams } from "../Utilities";
+import { axAddFavorite, axGetZipFromParams } from "../Utilities";
 import { useLoaderData } from "react-router-dom";
 
 export async function ZipLoader({ params }) {
-	const r = await axGetZipFromParams(params.zip);
-	return r;
+	return await axGetZipFromParams(params.zip);
 }
 
 export function ZipSearch() {

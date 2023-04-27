@@ -3,8 +3,7 @@ import { axProfileLoader, axUpdateUser } from "../Utilities";
 import { useState } from "react";
 
 export const ProfileLoader = async ({ params }) => {
-	const profile = await axProfileLoader(params.user);
-	return profile;
+	return await axProfileLoader(params.user);
 };
 
 export const Profile = () => {

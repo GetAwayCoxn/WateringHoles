@@ -38,12 +38,13 @@ export const axAddFavorite = async (brewery) => {
 
 export const axDeleteFavorite = async (brewery) => {
 	const r = await axios.post("/delete/", brewery);
-	return r.data;
+	if (r.data.success && r.data.deleted) {
+		location.reload();
+	}
 };
 
 export const axGetFavorites = async () => {
 	const r = await axios.get("/favorites/");
-	console.log("ax: ", r.data.breweries)
 	return r.data.breweries;
 };
 
