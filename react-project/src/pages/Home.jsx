@@ -1,26 +1,60 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext, LocationContext } from "../App";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { axDeleteFavorite, axGetFavorites } from "../Utilities";
+
+export async function HomeLoader() {
+	return await axGetFavorites();
+}
 
 export function Home() {
 	const { user } = useContext(UserContext);
 	const { loc } = useContext(LocationContext);
+	const breweries = useLoaderData();
+	const nav = useNavigate();
 
-	// temp force redirect for quicker development, remove before release
-	const navigate = useNavigate()
-	useEffect(() => {
-
-		// const navTo = () => {
-		// 	navigate(`/city/${loc.city}`)
-		// }
-		// setTimeout(navTo, 1000)
-	}, [])
-	
 	return (
 		<div>
 			{user ? (
 				<div>
 					<h1 className="text-capitalize"> Welcome {user}!</h1>
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Name</th>
+								<th scope="col">Website</th>
+								<th scope="col">Phone</th>
+								<th scope="col">Address</th>
+								<th scope="col">Delete Favorite</th>
+							</tr>
+						</thead>
+						<tbody>
+							{breweries.map((brewery) => (
+								<tr>
+									<th scope="row">{brewery.name}</th>
+									<td>
+										<a href={brewery.website_url} target="_blank">
+											{brewery.website_url}
+										</a>
+									</td>
+									<td>{brewery.phone}</td>
+									<td>
+										{brewery.address_1} <br /> {brewery.city}, {loc.region}{" "}
+										{brewery.postal_code}
+									</td>
+									<td>
+										<button
+											onClick={() => axDeleteFavorite(brewery)}
+											// onClick={() => [axDeleteFavorite(brewery), nav('/')]}
+											className="btn btn-primary"
+										>
+											Delete
+										</button>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
 				</div>
 			) : (
 				<div className="card">

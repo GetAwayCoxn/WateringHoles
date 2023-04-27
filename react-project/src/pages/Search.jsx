@@ -3,7 +3,7 @@ import { CitySearch } from "./CitySearch";
 import { ClosestSearch } from "./ClosestSearch";
 import { StateSearch } from "./StateSearch";
 import { ZipSearch } from "./ZipSearch";
-import { axGetSearchFromParams } from "../Utilities";
+import { axAddFavorite, axGetSearchFromParams } from "../Utilities";
 import { LocationContext } from "../App";
 
 export function Search({ type }) {
@@ -57,20 +57,30 @@ export function Search({ type }) {
 										{brewery.postal_code}
 									</td>
 									<td>
-										<button className="btn btn-primary">Add</button>
+										<button
+											onClick={() => axAddFavorite(brewery)}
+											className="btn btn-primary"
+										>
+											Add
+										</button>
 									</td>
 								</tr>
 							))}
 						</tbody>
 					</table>
-					<button className="btn btn-primary" onClick={() => setBreweries(null)}>Search Again</button>
+					<button
+						className="btn btn-primary"
+						onClick={() => setBreweries(null)}
+					>
+						Search Again
+					</button>
 				</div>
 			) : (
 				<div>
 					<hr />
 					<form onSubmit={(e) => HandleSearch(e)}>
 						<input type="text" placeholder="enter brewery name to search for" />
-						<button type="submit">Search</button>
+						<button className="btn btn-primary m-3" type="submit">Search</button>
 					</form>
 				</div>
 			)}

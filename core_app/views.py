@@ -99,6 +99,62 @@ def add_favorite(request):
 
 
 @api_view(["POST"])
+def delete_favorite(request):
+    if request.user.is_authenticated:
+        user_info = serialize("json", [request.user], fields=["username"])
+        user_info_workable = json.loads(user_info)
+        curr_user = Core_User.objects.get(username=user_info_workable[0]["fields"]["username"])
+        try:
+            request_id = request.data.get("brewery_id")            
+            curr_brew = Brewery.objects.get(brewery_id=request_id)
+            brew_id = curr_brew.id
+            curr_id = curr_user.id
+            try:
+                fav = Favorite.objects.filter(brewery_id=brew_id, user_id=curr_id).delete()
+                return JsonResponse({"success": True, "deleted": True})
+            except Exception as e:
+                return JsonResponse({"success": True, "deleted": False})
+        except Exception as e:
+            print(e)
+            return JsonResponse({"success": False})
+    return JsonResponse({"success": False})
+
+
+@api_view(["GET"])
+def get_favorites(request):
+    if request.user.is_authenticated:
+        user_info = serialize("json", [request.user], fields=["username"])
+        user_info_workable = json.loads(user_info)
+        curr_user = Core_User.objects.get(username=user_info_workable[0]["fields"]["username"])
+        curr_id = curr_user.id
+        try:
+            breweries = []
+            favs = Favorite.objects.filter(user_id=curr_id)
+            for fav in favs:
+                brewery = Brewery.objects.get(id=fav.brewery_id)
+                breweries.append({
+                    "brewery_id": brewery.brewery_id,
+                    "name": brewery.name,
+                    "website_url": brewery.website_url,
+                    "phone": brewery.phone,
+                    "address_1": brewery.address_1,
+                    "city": brewery.city,
+                    "state_province": brewery.state_province,
+                    "postal_code": brewery.postal_code,
+                    "country": brewery.country,
+                    "longitude": brewery.longitude,
+                    "latitude": brewery.latitude,
+                    "state": brewery.state,
+                })
+            print(breweries)
+            return JsonResponse({"breweries":breweries})
+        except Exception as e:
+            print(e)
+            return JsonResponse({"success": False})
+    return JsonResponse({"breweries":[]})
+
+
+@api_view(["POST"])
 def user_login(request):
     # Handle login
     username = request.data["username"]

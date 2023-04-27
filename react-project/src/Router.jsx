@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App, {AppLoader} from "./App";
 import { Register } from "./pages/Register";
-import { Home } from "./pages/Home";
+import { Home, HomeLoader } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Search } from "./pages/Search";
 import { CityLoader } from "./pages/CitySearch";
@@ -19,6 +19,7 @@ const Router = createBrowserRouter([
 			{
 				index: true,
 				element: <Home />,
+				loader: HomeLoader,
 			},
 			{
 				path: "/register/",

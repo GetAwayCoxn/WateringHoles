@@ -33,7 +33,19 @@ export const axUpdateUser = async (
 
 export const axAddFavorite = async (brewery) => {
 	const r = await axios.post("/add/", brewery);
-	console.log(r.data)
+	return r.data;
+};
+
+export const axDeleteFavorite = async (brewery) => {
+	const r = await axios.post("/delete/", brewery);
+	if (r.data.success && r.data.deleted) {
+		location.reload();
+	}
+};
+
+export const axGetFavorites = async () => {
+	const r = await axios.get("/favorites/");
+	return r.data.breweries;
 };
 
 export const axLogin = async (username, password, setUser) => {

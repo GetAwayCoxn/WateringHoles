@@ -1,11 +1,10 @@
 import { useContext } from "react";
 import { LocationContext } from "../App";
-import { axGetClosestFromParams } from "../Utilities";
+import { axAddFavorite, axGetClosestFromParams } from "../Utilities";
 import { useLoaderData } from "react-router-dom";
 
 export async function ClosestLoader({ params }) {
-	const r = await axGetClosestFromParams(params.lat,params.lon);
-	return r;
+	return await axGetClosestFromParams(params.lat,params.lon);
 }
 
 export function ClosestSearch() {
@@ -42,21 +41,15 @@ export function ClosestSearch() {
 								{brewery.postal_code}
 							</td>
 							<td>
-								<button className="btn btn-primary">Add</button>
+								<button
+									onClick={() => axAddFavorite(brewery)}
+									className="btn btn-primary"
+								>
+									Add
+								</button>
 							</td>
 						</tr>
 					))}
-					{/* <tr>
-						<th scope="row">2</th>
-						<td>Jacob</td>
-						<td>Thornton</td>
-						<td>@fat</td>
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td colspan="2">Larry the Bird</td>
-						<td>@twitter</td>
-					</tr> */}
 				</tbody>
 			</table>
 		</div>

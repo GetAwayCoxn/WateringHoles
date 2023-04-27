@@ -1,11 +1,10 @@
 import { useContext } from "react";
 import { LocationContext } from "../App";
-import { axGetZipFromParams } from "../Utilities";
+import { axAddFavorite, axGetZipFromParams } from "../Utilities";
 import { useLoaderData } from "react-router-dom";
 
 export async function ZipLoader({ params }) {
-	const r = await axGetZipFromParams(params.zip);
-	return r;
+	return await axGetZipFromParams(params.zip);
 }
 
 export function ZipSearch() {
@@ -40,21 +39,15 @@ export function ZipSearch() {
 								{brewery.postal_code}
 							</td>
 							<td>
-								<button className="btn btn-primary">Add</button>
+								<button
+									onClick={() => axAddFavorite(brewery)}
+									className="btn btn-primary"
+								>
+									Add
+								</button>
 							</td>
 						</tr>
 					))}
-					{/* <tr>
-						<th scope="row">2</th>
-						<td>Jacob</td>
-						<td>Thornton</td>
-						<td>@fat</td>
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td colspan="2">Larry the Bird</td>
-						<td>@twitter</td>
-					</tr> */}
 				</tbody>
 			</table>
 		</div>

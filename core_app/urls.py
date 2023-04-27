@@ -25,6 +25,8 @@ urlpatterns = [
     path("logout/", views.user_logout),
     path("user/", views.show_user),
     path("add/", views.add_favorite),
+    path("delete/", views.delete_favorite),
+    path("favorites/", views.get_favorites),
     path("profile/<str:username>", views.user_profile),
     re_path(r'.*', views.error),
 ]
