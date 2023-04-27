@@ -22,16 +22,16 @@ class Core_User(AbstractUser):
 class Brewery(models.Model):
     brewery_id = models.CharField(max_length=255, unique=True)
     name = models.CharField(max_length=100)
-    website_url = models.CharField(max_length=100)
-    phone = models.CharField(max_length=100)
-    address_1 = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    state_province = models.CharField(max_length=100)
-    postal_code = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
-    longitude = models.CharField(max_length=100)
-    latitude = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
+    website_url = models.CharField(max_length=100, blank=True)
+    phone = models.CharField(max_length=100, blank=True)
+    address_1 = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    state_province = models.CharField(max_length=100, blank=True)
+    postal_code = models.CharField(max_length=100, blank=True)
+    country = models.CharField(max_length=100, blank=True)
+    longitude = models.CharField(max_length=100, blank=True)
+    latitude = models.CharField(max_length=100, blank=True)
+    state = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return f"Brewery Model for {self.name}"
