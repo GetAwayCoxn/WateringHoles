@@ -28,7 +28,8 @@ def register_user(request):
             is_superuser=super_user,
             is_staff=staff,
         )
-        new_user.save()
+        user = authenticate(username=username, password=password)
+        login(request._request, user)
         return JsonResponse({"username": username})
     except Exception as e:
         print(e)
@@ -160,6 +161,7 @@ def user_login(request):
     username = request.data["username"]
     password = request.data["password"]
     user = authenticate(username=username, password=password)
+    print(user)
     if user is not None and user.is_active:
         # Return JSON obj with only key as 'username' to be either the username or None for proper state handling in react
         try:

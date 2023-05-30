@@ -63,7 +63,7 @@ export const axLogout = async (setUser) => {
 };
 
 export const axUserLoader = async () => {
-	const r = await axios.get("/user/", {});
+	const r = await axios.get("/user/");
 	return r.data.username;
 };
 

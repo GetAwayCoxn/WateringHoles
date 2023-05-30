@@ -7,10 +7,10 @@ class Core_User(AbstractUser):
     first_name = models.CharField(max_length=50, null=True)
     last_name = models.CharField(max_length=50, null=True)
     email = models.EmailField(max_length=254, unique=True)
-    dob = models.DateField(null=True)
+    dob = models.DateField(null=True, blank=True)
     last_updated = models.DateField(auto_now=True)
     date_created = models.DateField(auto_now_add=True)
-    bio = models.TextField(null=True)
+    bio = models.TextField(null=True, blank=True)
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["email"]
     
